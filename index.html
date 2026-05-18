@@ -741,7 +741,7 @@ header {
 }
 
 .count-num {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: 'Syne', sans-serif;
   font-size: 2rem;
   font-weight: 400;
   color: #0c0c0e;
@@ -799,18 +799,18 @@ header {
   filter: drop-shadow(0 2px 8px rgba(0,0,0,0.8));
 }
 
-.marker-wrap:hover { transform: translateY(-4px); }
+.marker-wrap:hover { transform: translateY(-4px) scale(1.4); }
 
 .marker-circle {
-  width: 48px;
-  height: 48px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
-  border: 2px solid var(--amber);
+  border: 2.5px solid var(--amber);
   background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Syne', sans-serif;
   font-size: 13px;
   font-weight: 400;
   color: var(--amber);
@@ -880,7 +880,7 @@ header {
 }
 
 .popup-index {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Syne', sans-serif;
   font-size: 0.7rem;
   color: var(--amber);
   letter-spacing: 0.15em;
@@ -888,8 +888,8 @@ header {
 }
 
 .popup-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.35rem;
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem;
   font-weight: 300;
   color: var(--paper);
   line-height: 1.2;
@@ -921,7 +921,7 @@ header {
 }
 
 .popup-desc {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Syne', sans-serif;
   font-size: 0.88rem;
   color: rgba(240,235,224,0.55);
   line-height: 1.65;
@@ -1026,7 +1026,7 @@ header {
 .sidebar-item:hover { background: rgba(200,169,110,0.06); }
 
 .sidebar-num {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Syne', sans-serif;
   font-size: 0.8rem;
   color: var(--amber);
   opacity: 0.6;
@@ -1036,8 +1036,8 @@ header {
 .sidebar-info { flex: 1; min-width: 0; }
 
 .sidebar-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.95rem;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.85rem;
   color: var(--paper);
   white-space: nowrap;
   overflow: hidden;
@@ -1311,6 +1311,21 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 L.control.zoom({ position: 'bottomright' }).addTo(map);
 
+/* Scale markers based on zoom level */
+function updateMarkerScale() {
+  const zoom = map.getZoom();
+  // At zoom 14 = 0.6x, zoom 15 = 1x, zoom 16 = 1.4x, zoom 17+ = 1.8x
+  const scale = Math.max(0.5, Math.min(2.0, (zoom - 13) * 0.4));
+  document.querySelectorAll('.marker-wrap').forEach(el => {
+    el.style.transform = `scale(${scale})`;
+    el.style.transformOrigin = 'bottom center';
+  });
+}
+
+map.on('zoomend', updateMarkerScale);
+map.on('load', updateMarkerScale);
+setTimeout(updateMarkerScale, 500);
+
 /* ── BUILD MARKERS ── */
 const markers = {};
 let currentFilter = 'all';
@@ -1318,7 +1333,7 @@ let currentFilter = 'all';
 function makeIcon(p) {
   const col = discColors[p.discipline] || '#e85d04';
   const inner = p.symbol
-    ? `<img src="icons/${p.symbol}" alt="${p.name}" style="width:34px;height:34px;object-fit:contain;display:block;">`
+    ? `<img src="icons/${p.symbol}" alt="${p.name}" style="width:36px;height:36px;object-fit:contain;display:block;">`
     : `<span style="font-family:'Syne',sans-serif;font-size:11px;font-weight:500;color:${col};">${p.initials}</span>`;
   return L.divIcon({
     html: `<div class="marker-wrap">
@@ -1326,8 +1341,8 @@ function makeIcon(p) {
       <div class="marker-stem"></div>
     </div>`,
     className: '',
-    iconSize: [54, 66],
-    iconAnchor: [27, 62],
+    iconSize: [52, 66],
+    iconAnchor: [26, 62],
     popupAnchor: [0, -62]
   });
 }
@@ -1335,9 +1350,7 @@ function makeIcon(p) {
 function makePopup(p) {
   const col = discColors[p.discipline] || '#c8a96e';
   return `<div class="popup-body">
-    <div class="popup-index">No. ${String(p.id).padStart(2,'0')} — ${new Date().getFullYear()}</div>
     <div class="popup-name">${p.name}</div>
-    <div class="popup-discipline" style="color:${col};">${p.discipline}</div>
     <div class="popup-site">
       <svg width="10" height="12" viewBox="0 0 10 12" fill="none"><path d="M5 0C2.24 0 0 2.24 0 5c0 3.75 5 7 5 7s5-3.25 5-7c0-2.76-2.24-5-5-5zm0 6.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3z" fill="currentColor"/></svg>
       ${p.site}
