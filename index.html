@@ -756,32 +756,11 @@ header {
   margin-top: 2px;
 }
 
-.filter-bar {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
 
-.filter-btn {
-  background: none;
-  border: 1px solid rgba(0,0,0,0.2);
-  color: rgba(0,0,0,0.5);
-  font-family: 'Syne', sans-serif;
-  font-size: 0.6rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 5px 10px;
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
 
-.filter-btn:hover,
-.filter-btn.active {
-  border-color: #0c0c0e;
-  color: #0c0c0e;
-  background: rgba(0,0,0,0.1);
-}
+
+
+
 
 /* ── MAP ── */
 #map {
@@ -1104,17 +1083,8 @@ header {
     <h1 class="site-title">Something Accumulates in the Waypoint</h1>
   </div>
   <div class="header-right">
-    <div class="filter-bar" id="filters">
-      <button class="filter-btn active" data-disc="all">All</button>
-      <button class="filter-btn" data-disc="architecture">Architecture</button>
-      <button class="filter-btn" data-disc="art">Art</button>
-      <button class="filter-btn" data-disc="urban">Urban</button>
-      <button class="filter-btn" data-disc="installation">Installation</button>
-      <button class="filter-btn" data-disc="photography">Photography</button>
-      <button class="filter-btn" data-disc="film">Film</button>
-    </div>
     <div class="project-count">
-      <div class="count-num" id="visible-count">24</div>
+      <div class="count-num" id="visible-count">19</div>
       <div class="count-label">Projects</div>
     </div>
   </div>
@@ -1143,31 +1113,178 @@ function initMap() {
    - initials: 1–3 chars shown on the pin
    ================================================================ */
 const projects = [
-  { id:1,  name:"Sara Okonkwo",      initials:"SO", discipline:"architecture",  site:"Former Heygate Estate perimeter, Walworth Road", desc:"Adaptive threshold conditions along the boundary of erasure.", url:"https://yoursite.com/sara-okonkwo",      lat:51.4947, lng:-0.0942 },
-  { id:2,  name:"Luca Ferretti",     initials:"LF", discipline:"urban",         site:"Elephant & Castle roundabout, New Kent Road",      desc:"Infrastructural memory embedded in the traffic island.",     url:"https://yoursite.com/luca-ferretti",     lat:51.4956, lng:-0.1002 },
-  { id:3,  name:"Mia Zhang",         initials:"MZ", discipline:"installation",  site:"Shopping Centre undercroft, St George's Road",      desc:"Sound-reactive textiles suspended in the derelict arcade.", url:"https://yoursite.com/mia-zhang",         lat:51.4952, lng:-0.0981 },
-  { id:4,  name:"Tobias Brennan",    initials:"TB", discipline:"film",          site:"Elephant Park construction hoarding, Heygate St",   desc:"A 16mm portrait of workers, soil, and displaced objects.",  url:"https://yoursite.com/tobias-brennan",    lat:51.4941, lng:-0.0950 },
-  { id:5,  name:"Anya Petrov",       initials:"AP", discipline:"photography",   site:"Rockingham Estate stairwells, Brandon St",          desc:"Chiaroscuro portraits of communal thresholds.",             url:"https://yoursite.com/anya-petrov",       lat:51.4960, lng:-0.1015 },
-  { id:6,  name:"James Osei",        initials:"JO", discipline:"architecture",  site:"Ministry of Sound block, Gaunt Street",             desc:"Acoustic mass as civic armature — a proposal for resonant public infrastructure.", url:"https://yoursite.com/james-osei", lat:51.4977, lng:-0.0991 },
-  { id:7,  name:"Priya Sharma",      initials:"PS", discipline:"art",           site:"Scovell Estate community garden, Scovell Road",     desc:"Soil-cast ceramics mapping the buried kitchen gardens.",    url:"https://yoursite.com/priya-sharma",      lat:51.4980, lng:-0.0963 },
-  { id:8,  name:"Noah Williams",     initials:"NW", discipline:"urban",         site:"Old Kent Road junction, Braganza Street",           desc:"Street furniture as neighbourhood sovereignty claim.",       url:"https://yoursite.com/noah-williams",     lat:51.4861, lng:-0.0795 },
-  { id:9,  name:"Fatima Al-Hassan",  initials:"FA", discipline:"installation",  site:"Faraday Memorial, underneath the roundabout",       desc:"Light interruptions responding to the stainless steel monolith.", url:"https://yoursite.com/fatima-al-hassan", lat:51.4957, lng:-0.0999 },
-  { id:10, name:"Elliot Park",       initials:"EP", discipline:"photography",   site:"Newington Butts traffic arch, Brook Drive",         desc:"Long exposures recording pedestrian desire lines at dusk.", url:"https://yoursite.com/elliot-park",       lat:51.4944, lng:-0.1025 },
-  { id:11, name:"Chiara Rossi",      initials:"CR", discipline:"art",           site:"Walworth Road market stalls, East Street",          desc:"Painted banners as ephemeral property boundary markers.",   url:"https://yoursite.com/chiara-rossi",      lat:51.4887, lng:-0.0911 },
-  { id:12, name:"Marcus Baptiste",   initials:"MB", discipline:"film",          site:"Elephant & Castle tube station, London Road exit",  desc:"Observational cinema in the passenger concourse.",          url:"https://yoursite.com/marcus-baptiste",   lat:51.4953, lng:-0.1007 },
-  { id:13, name:"Yuki Tanaka",       initials:"YT", discipline:"architecture",  site:"Strata SE1 podium, Elephant Road",                  desc:"Inhabitable wind — a critique through counter-proposal.",   url:"https://yoursite.com/yuki-tanaka",       lat:51.4939, lng:-0.0972 },
-  { id:14, name:"Adaeze Nwosu",      initials:"AN", discipline:"installation",  site:"Aylesbury Estate entrance, Albany Road",            desc:"Archive-fabric: 300 garments collected from former residents.", url:"https://yoursite.com/adaeze-nwosu",   lat:51.4892, lng:-0.0938 },
-  { id:15, name:"Felix Gruber",      initials:"FG", discipline:"urban",         site:"Newington Gardens, Kennington Park Road",           desc:"Temporal occupation patterns in a residual green space.",   url:"https://yoursite.com/felix-gruber",      lat:51.4900, lng:-0.1053 },
-  { id:16, name:"Imogen Clarke",     initials:"IC", discipline:"photography",   site:"Surrey Square park, Albany Road",                   desc:"Typology of temporary shelters and improvised enclosures.", url:"https://yoursite.com/imogen-clarke",     lat:51.4876, lng:-0.0869 },
-  { id:17, name:"Rafa Moreno",       initials:"RM", discipline:"art",           site:"Cobourg Road mural wall, Peckham Road end",         desc:"Fresco-erasure: overpainted histories restored in stages.", url:"https://yoursite.com/rafa-moreno",       lat:51.4841, lng:-0.0886 },
-  { id:18, name:"Sasha Ivanova",     initials:"SI", discipline:"film",          site:"Bakerloo line depot fence, Elephant Road",          desc:"A score for train sounds, muffled voices, and pigeons.",    url:"https://yoursite.com/sasha-ivanova",     lat:51.4934, lng:-0.0985 },
-  { id:19, name:"Kwame Mensah",      initials:"KM", discipline:"architecture",  site:"Elephant One tower base, Newington Causeway",       desc:"Ground-plane activated: a public plinth reclaimed from retail.", url:"https://yoursite.com/kwame-mensah",  lat:51.4963, lng:-0.0973 },
-  { id:20, name:"Brigitte Müller",   initials:"BM", discipline:"installation",  site:"Kennington Lane railway arch, Kennings Way",        desc:"Resonant chamber: field recordings returned to their origin.", url:"https://yoursite.com/brigitte-muller",lat:51.4890, lng:-0.1060 },
-  { id:21, name:"Theo Papageorgiou", initials:"TP", discipline:"urban",         site:"Brandon Estate estate road, Mostyn Grove",          desc:"Pedestrian counter-flows and informal economies mapped.",   url:"https://yoursite.com/theo-papa",         lat:51.4971, lng:-0.1020 },
-  { id:22, name:"Nadia Osman",       initials:"NO", discipline:"art",           site:"Walworth Road railway bridge, Portland Street",     desc:"Painted geological strata referencing layers of demolition.", url:"https://yoursite.com/nadia-osman",     lat:51.4921, lng:-0.0933 },
-  { id:23, name:"Leon Dubois",       initials:"LD", discipline:"photography",   site:"Victory pub ruin, Heygate Street",                  desc:"Typological series: pub interiors on the day of closure.",  url:"https://yoursite.com/leon-dubois",       lat:51.4944, lng:-0.0960 },
-  { id:24, name:"Zara Ahmed",        initials:"ZA", discipline:"installation",  site:"E&C leisure centre pool hall, London Road",         desc:"Submerged ambient composition played through pool tiles.",  url:"https://yoursite.com/zara-ahmed",        lat:51.4960, lng:-0.1030 },
-];
+  {
+    id:1, name:"Amie Stafford", initials:"AS", symbol:"amie-stafford.png",
+    discipline:"art",
+    site:"Corsica Studios, 4-5 Elephant Rd, London SE17 1LB",
+    title:"Archiving the Narrative Environment of Corsica Studios",
+    desc:"Inspired by the traces left by people at nightlife venues — graffiti on the walls, cups on the floor, stickers on mirrors. Explores what Corsica Studios meant to its community of ravers, locals, and creatives before its closure due to gentrification.",
+    url:"projects/amie-stafford.html",
+    lat:51.4938, lng:-0.0978
+  },
+  {
+    id:2, name:"Anastazja Kot", initials:"AK", symbol:"anastazja-kot.png",
+    discipline:"art",
+    site:"Imperial War Museum, Lambeth Rd, London SE1 6HZ",
+    title:"Preservation",
+    desc:"Over the course of humanity, our history has been preserved in many ways. How can we tell how much has been preserved correctly or altered to fit a story?",
+    url:"projects/anastazja-kot.html",
+    lat:51.4966, lng:-0.1088
+  },
+  {
+    id:3, name:"Anita Donini", initials:"AD", symbol:"anita-donini.png",
+    discipline:"photography",
+    site:"Elephant Rd, Elephant and Castle, London SE17 1LB",
+    title:"Traces",
+    desc:"Documents Latin American food businesses in Elephant and Castle through photography and an interactive map — preserving and celebrating a community whose identity is slowly being affected by gentrification.",
+    url:"projects/anita-donini.html",
+    lat:51.4940, lng:-0.0975
+  },
+  {
+    id:4, name:"Betsy Donovan", initials:"BD", symbol:"betsy-donovan.png",
+    discipline:"photography",
+    site:"Elephant Road, London SE17",
+    title:"E is for Elephant Road",
+    desc:"Elephant Road — a place that remains vibrant amongst rapid gentrification, through its colourful graffiti and street art. A place worth taking time to explore and wander.",
+    url:"projects/betsy-donovan.html",
+    lat:51.49442, lng:-0.09837
+  },
+  {
+    id:5, name:"Chloe Leung", initials:"CL", symbol:"chloe-leung.png",
+    discipline:"art",
+    site:"Elephant and Castle, London",
+    title:"Remains & Remnants",
+    desc:"Explores the concept of gentrification and sense of belonging. When we stay temporarily, where do we really belong?",
+    url:"projects/chloe-leung.html",
+    lat:51.4955, lng:-0.1002
+  },
+  {
+    id:6, name:"Eric Stodart", initials:"ES", symbol:"eric-stodart.png",
+    discipline:"installation",
+    site:"London Rd, Elephant and Castle, London SE1 6LW",
+    title:"DOT THAT",
+    desc:"As redevelopment reshapes Southwark, DOT THAT gently reclaims and re-marks threatened environments using wildflowers symbolic of care, memory, and resistance.",
+    url:"projects/eric-stodart.html",
+    lat:51.4958, lng:-0.1018
+  },
+  {
+    id:7, name:"Eta Wong", initials:"EW", symbol:"eta-wong.png",
+    discipline:"urban",
+    site:"Elephant Park, Elephant Rd, London SE17 1GD",
+    title:"A Living Guide to Elephant & Castle",
+    desc:"For people learning how to live in Elephant & Castle — not just move through it. A guide to noticing what usually goes unseen and finding your own rhythm within the site.",
+    url:"projects/eta-wong.html",
+    lat:51.4941, lng:-0.0955
+  },
+  {
+    id:8, name:"Gheorghe Voinovan", initials:"GV", symbol:"",
+    discipline:"art",
+    site:"Elephant and Castle, London",
+    title:"Comfort",
+    desc:"There is something deeper in the cultural change story — or is there? A mass series of well-placed plasticky objects in a certain aesthetic: the coffee, the MacBook, the plants.",
+    url:"projects/gheorghe-voinovan.html",
+    lat:51.4950, lng:-0.0990
+  },
+  {
+    id:9, name:"Hyorim & Sophia", initials:"HS", symbol:"Hyorim-Sophia.png",
+    discipline:"art",
+    site:"Elephant and Castle, London",
+    title:"",
+    desc:"",
+    url:"projects/hyorim-sophia.html",
+    lat:51.4962, lng:-0.0970
+  },
+  {
+    id:10, name:"Ishita Jhunjhunwala", initials:"IJ", symbol:"ishita-jhunjhunwala.png",
+    discipline:"installation",
+    site:"Falafel Lover, 21 St George's Rd, London SE1 6ES",
+    title:"Eating the Map",
+    desc:"A collectively fed map that stores food memories as an active archive of food as cultural and shared memory.",
+    url:"projects/ishita-jhunjhunwala.html",
+    lat:51.4953, lng:-0.0989
+  },
+  {
+    id:11, name:"Jaina Bowry-Soni", initials:"JB", symbol:"jaina-soni.png",
+    discipline:"urban",
+    site:"Elephant and Castle, London SE1",
+    title:"Layers",
+    desc:"Through layers of tags, murals, and street art, the city becomes a canvas for self-expression, identity, and belonging — reflecting the voices of different people within the Elephant and Castle community.",
+    url:"projects/jaina-bowry-soni.html",
+    lat:51.4886, lng:-0.0963
+  },
+  {
+    id:12, name:"Joshua Landell-Jackson", initials:"JL", symbol:"josh.png",
+    discipline:"installation",
+    site:"UAL London College of Communication, Elephant and Castle SE1 6SB",
+    title:"Over a Pint or Pool",
+    desc:"An audio-reactive point cloud that immortalises the dark room. The louder the participant sings, the more the point cloud comes back to life.",
+    url:"projects/joshua-landell-jackson.html",
+    lat:51.4942, lng:-0.1003
+  },
+  {
+    id:13, name:"Kiera & Naila", initials:"KN", symbol:"kiera-naila.png",
+    discipline:"film",
+    site:"UAL London College of Communication, Elephant and Castle SE1 6SD",
+    title:"The Booth",
+    desc:"For some it's just a seat that's never available — for others, a place of memories. A journey to remember our home away from home at the heart of LCC before the transition to the new building.",
+    url:"projects/kiera-naila.html",
+    lat:51.4943, lng:-0.1001
+  },
+  {
+    id:14, name:"Krtvi Trehan", initials:"KT", symbol:"krtvi-trehan.png",
+    discipline:"installation",
+    site:"UAL London College of Communication, Elephant and Castle SE1 6SB",
+    title:"SE17 (graphic scoring)",
+    desc:"Auditory reconstructions of public places in a time where occupying space is a matter of privilege and not a right of personhood.",
+    url:"projects/krtvi-trehan.html",
+    lat:51.4944, lng:-0.1005
+  },
+  {
+    id:15, name:"Miguel Angel Valles III", initials:"MV", symbol:"miguel.png",
+    discipline:"photography",
+    site:"Elephant & Castle / London Road Stop A, London SE1 6HH",
+    title:"Gallery Notes",
+    desc:"Photography taken around Elephant & Castle, focusing on the strong Latin community that resides in the area.",
+    url:"projects/miguel-valles.html",
+    lat:51.4957, lng:-0.1008
+  },
+  {
+    id:16, name:"Paola Rel Perez & Lila Cook", initials:"PL", symbol:"paola-lila.png",
+    discipline:"film",
+    site:"Old Kent Road, London",
+    title:"Built Over",
+    desc:"A short film exploring how the Old Kent Road has changed through gentrification — showing the community, loss, and what still remains in the area today.",
+    url:"projects/paola-lila.html",
+    lat:51.4861, lng:-0.0798
+  },
+  {
+    id:17, name:"Saimonas Dumbliauskas", initials:"SD", symbol:"Saimonas.png",
+    discipline:"art",
+    site:"17 Elephant and Castle, London SE1 6TB",
+    title:"University of the Arts London: College of Isolation",
+    desc:"A fictional institutional archive that reimagines university life as a space of loneliness, surveillance, and a medical ward.",
+    url:"projects/saimonas-dumbliauskas.html",
+    lat:51.4956, lng:-0.1005
+  },
+  {
+    id:18, name:"Yena Lee", initials:"YL", symbol:"yena-lee.png",
+    discipline:"art",
+    site:"Elephant and Castle Roundabout, London",
+    title:"Reification Exercises",
+    desc:"Visual exercises in relation to the Elephant and Castle roundabout — experimenting with how much control we can exert on uncertainties, transience, and ambiguity through interactions with our environment.",
+    url:"projects/yena-lee.html",
+    lat:51.4953, lng:-0.1006
+  },
+  {
+    id:19, name:"Rouge", initials:"RG", symbol:"",
+    discipline:"art",
+    site:"Castle Square, Unit 18, 40 Elephant Rd, London SE17 1EU",
+    title:"",
+    desc:"",
+    url:"projects/rouge.html",
+    lat:51.4936, lng:-0.0971
+  },
+]
 
 /* Discipline colours */
 const discColors = {
@@ -1199,10 +1316,13 @@ const markers = {};
 let currentFilter = 'all';
 
 function makeIcon(p) {
-  const col = discColors[p.discipline] || '#c8a96e';
+  const col = discColors[p.discipline] || '#e85d04';
+  const inner = p.symbol
+    ? `<img src="icons/${p.symbol}" alt="${p.name}" style="width:22px;height:22px;object-fit:contain;display:block;">`
+    : `<span style="font-family:'Syne',sans-serif;font-size:11px;font-weight:500;color:${col};">${p.initials}</span>`;
   return L.divIcon({
     html: `<div class="marker-wrap">
-      <div class="marker-circle" style="border-color:${col};color:${col};">${p.initials}</div>
+      <div class="marker-circle" style="border-color:${col};">${inner}</div>
       <div class="marker-stem"></div>
     </div>`,
     className: '',
@@ -1267,27 +1387,6 @@ function buildSidebar(filter) {
 function toggleSidebar() {
   document.getElementById('sidebar').classList.toggle('open');
 }
-
-/* ── FILTERS ── */
-document.getElementById('filters').addEventListener('click', e => {
-  const btn = e.target.closest('.filter-btn');
-  if (!btn) return;
-  const disc = btn.dataset.disc;
-  currentFilter = disc;
-
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-
-  let count = 0;
-  Object.values(markers).forEach(m => {
-    const show = disc === 'all' || m._discipline === disc;
-    if (show) { map.addLayer(m); count++; }
-    else { map.removeLayer(m); }
-  });
-
-  document.getElementById('visible-count').textContent = count;
-  buildSidebar(disc);
-});
 
 /* Init sidebar */
 buildSidebar('all');
