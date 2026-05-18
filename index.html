@@ -802,11 +802,11 @@ header {
 .marker-wrap:hover { transform: translateY(-4px); }
 
 .marker-circle {
-  width: 34px;
-  height: 34px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  border: 1.5px solid var(--amber);
-  background: #16151a;
+  border: 2px solid var(--amber);
+  background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1318,7 +1318,7 @@ let currentFilter = 'all';
 function makeIcon(p) {
   const col = discColors[p.discipline] || '#e85d04';
   const inner = p.symbol
-    ? `<img src="icons/${p.symbol}" alt="${p.name}" style="width:22px;height:22px;object-fit:contain;display:block;">`
+    ? `<img src="icons/${p.symbol}" alt="${p.name}" style="width:34px;height:34px;object-fit:contain;display:block;">`
     : `<span style="font-family:'Syne',sans-serif;font-size:11px;font-weight:500;color:${col};">${p.initials}</span>`;
   return L.divIcon({
     html: `<div class="marker-wrap">
@@ -1326,9 +1326,9 @@ function makeIcon(p) {
       <div class="marker-stem"></div>
     </div>`,
     className: '',
-    iconSize: [40, 50],
-    iconAnchor: [20, 46],
-    popupAnchor: [0, -46]
+    iconSize: [54, 66],
+    iconAnchor: [27, 62],
+    popupAnchor: [0, -62]
   });
 }
 
