@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================================================
+  STUDENT PROJECT PAGE TEMPLATE
+  ─────────────────────────────
+  HOW TO USE:
+  1. Duplicate this file and rename it: e.g. sara-okonkwo.html
+  2. Edit the STUDENT DATA section below (look for ★)
+  3. Add photos to a folder: /projects/images/sara-okonkwo/
+  4. Update the image src paths in the PHOTOS section
+  5. In index.html, set that student's url to: projects/sara-okonkwo.html
+============================================================ -->
+
+<title>Student Name — Something Accumulates in the Waypoint</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Syne:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ink:        #0c0c0e;
+  --paper:      #f5ede4;
+  --orange:     #e85d04;
+  --orange-dim: rgba(232,93,4,0.12);
+  --muted:      rgba(245,237,228,0.4);
+  --faint:      rgba(245,237,228,0.1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Syne', sans-serif;
+  background: var(--ink);
+  color: var(--paper);
+  min-height: 100vh;
+}
+
+/* ── TOP NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 2rem;
+  background: var(--orange);
+  border-bottom: 2px solid rgba(0,0,0,0.15);
+}
+
+.nav-back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #0c0c0e;
+  transition: opacity 0.2s;
+}
+
+.nav-back:hover { opacity: 0.6; }
+
+.nav-back svg { flex-shrink: 0; }
+
+.nav-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  color: #0c0c0e;
+  text-transform: uppercase;
+}
+
+.nav-discipline {
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.5);
+}
+
+/* ── HERO ── */
+.hero {
+  padding: 7rem 2rem 3rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: end;
+  border-bottom: 1px solid var(--faint);
+  padding-bottom: 3rem;
+}
+
+.hero-left { display: flex; flex-direction: column; gap: 1rem; }
+
+.hero-index {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+
+.hero-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  color: var(--paper);
+  text-transform: uppercase;
+}
+
+.hero-project-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(245,237,228,0.7);
+  line-height: 1.4;
+  max-width: 380px;
+}
+
+.hero-right { display: flex; flex-direction: column; gap: 1.5rem; }
+
+.hero-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.meta-item {}
+
+.meta-label {
+  font-size: 0.55rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.meta-value {
+  font-size: 0.82rem;
+  color: var(--paper);
+  font-weight: 400;
+}
+
+.hero-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.75;
+  color: rgba(245,237,228,0.6);
+}
+
+/* ── ORANGE DIVIDER ── */
+.divider {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, var(--orange), transparent);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ── PHOTO GRID ── */
+.gallery {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.gallery-label {
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 1.5rem;
+}
+
+/* Default: masonry-style 3-col grid */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+/* Individual image items */
+.photo-item {
+  position: relative;
+  overflow: hidden;
+  background: #1a1a1e;
+  cursor: pointer;
+}
+
+/* Span variants — add class to a .photo-item to change size */
+.photo-item.wide   { grid-column: span 2; }
+.photo-item.tall   { grid-row: span 2; }
+.photo-item.full   { grid-column: span 3; }
+
+.photo-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  min-height: 220px;
+  transition: transform 0.5s ease, opacity 0.3s ease;
+  opacity: 0.88;
+}
+
+.photo-item:hover img {
+  transform: scale(1.03);
+  opacity: 1;
+}
+
+/* Optional caption on hover */
+.photo-caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 0.6rem 0.8rem;
+  background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  font-size: 0.65rem;
+  color: rgba(245,237,228,0.6);
+  letter-spacing: 0.05em;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.photo-item:hover .photo-caption { transform: translateY(0); }
+
+/* ── LIGHTBOX ── */
+#lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.95);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+#lightbox.open { display: flex; }
+
+#lightbox img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  box-shadow: 0 0 80px rgba(0,0,0,0.8);
+}
+
+#lightbox-close {
+  position: absolute;
+  top: 1.5rem; right: 2rem;
+  font-size: 1.5rem;
+  color: rgba(245,237,228,0.5);
+  cursor: pointer;
+  font-family: 'Syne', sans-serif;
+  font-weight: 300;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+#lightbox-close:hover { color: var(--paper); }
+
+/* ── STATEMENT SECTION ── */
+.statement {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 2rem 5rem;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 4rem;
+  border-top: 1px solid var(--faint);
+}
+
+.statement-label {
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange);
+  padding-top: 4px;
+}
+
+.statement-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: rgba(245,237,228,0.65);
+}
+
+.statement-text p + p { margin-top: 1.2rem; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--orange);
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  color: #0c0c0e;
+}
+
+.footer-back {
+  text-decoration: none;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.6);
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+.footer-back:hover { opacity: 0.5; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .hero { grid-template-columns: 1fr; gap: 2rem; padding-top: 6rem; }
+  .photo-grid { grid-template-columns: repeat(2, 1fr); }
+  .photo-item.wide { grid-column: span 2; }
+  .photo-item.full { grid-column: span 2; }
+  .photo-item.tall { grid-row: span 1; }
+  .statement { grid-template-columns: 1fr; gap: 1rem; }
+  nav { padding: 0.75rem 1rem; }
+  .nav-title { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a class="nav-back" href="../index.html">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Back to map
+  </a>
+  <span class="nav-title">Something Accumulates in the Waypoint</span>
+  <!-- ★ Change this to the student's discipline -->
+  <span class="nav-discipline">Architecture</span>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-left">
+    <!-- ★ Change the number to match the student's id in index.html -->
+    <div class="hero-index">No. 01 — 2025</div>
+
+    <!-- ★ Student's name -->
+    <h1 class="hero-name">Sara<br>Okonkwo</h1>
+
+    <!-- ★ Project title -->
+    <p class="hero-project-title">"Adaptive threshold conditions along the boundary of erasure"</p>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-meta">
+      <!-- ★ Fill in the details -->
+      <div class="meta-item">
+        <div class="meta-label">Site</div>
+        <div class="meta-value">Former Heygate Estate perimeter, Walworth Road</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Discipline</div>
+        <div class="meta-value">Architecture</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Year</div>
+        <div class="meta-value">2025</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Status</div>
+        <div class="meta-value">Complete</div>
+      </div>
+    </div>
+
+    <!-- ★ Short intro paragraph (shown in hero, above the photos) -->
+    <p class="hero-desc">
+      A spatial investigation into the residual thresholds left by urban clearance — 
+      exploring what accumulates at the edges of erasure and what new conditions 
+      might be drawn from the perimeter of absence.
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── PHOTO GALLERY ── -->
+<section class="gallery">
+  <div class="gallery-label">Documentation</div>
+
+  <div class="photo-grid">
+
+    <!-- ★ PHOTO GRID — edit src paths to point to your images.
+         Layout classes you can mix and match on any .photo-item:
+           (no class) = normal 1-col wide
+           .wide      = 2 columns wide
+           .tall      = 2 rows tall
+           .full      = full 3-col width
+         Tip: a .tall + two normal beside it looks great.
+         Add as many .photo-item blocks as you need. -->
+
+    <div class="photo-item tall">
+      <img src="images/sara-okonkwo/01.jpg" alt="Project image 1" loading="lazy">
+      <div class="photo-caption">Perimeter condition, Walworth Road</div>
+    </div>
+
+    <div class="photo-item">
+      <img src="images/sara-okonkwo/02.jpg" alt="Project image 2" loading="lazy">
+    </div>
+
+    <div class="photo-item">
+      <img src="images/sara-okonkwo/03.jpg" alt="Project image 3" loading="lazy">
+    </div>
+
+    <div class="photo-item wide">
+      <img src="images/sara-okonkwo/04.jpg" alt="Project image 4" loading="lazy">
+      <div class="photo-caption">Site boundary detail</div>
+    </div>
+
+    <div class="photo-item full">
+      <img src="images/sara-okonkwo/05.jpg" alt="Project image 5" loading="lazy">
+      <div class="photo-caption">Full site panorama</div>
+    </div>
+
+    <div class="photo-item">
+      <img src="images/sara-okonkwo/06.jpg" alt="Project image 6" loading="lazy">
+    </div>
+
+    <div class="photo-item">
+      <img src="images/sara-okonkwo/07.jpg" alt="Project image 7" loading="lazy">
+    </div>
+
+    <div class="photo-item">
+      <img src="images/sara-okonkwo/08.jpg" alt="Project image 8" loading="lazy">
+    </div>
+
+  </div>
+</section>
+
+<!-- ── PROJECT STATEMENT ── -->
+<section class="statement">
+  <div class="statement-label">Project Statement</div>
+  <div class="statement-text">
+    <!-- ★ Replace with the student's actual project statement. 
+         Use <p> tags for paragraphs. -->
+    <p>
+      The Heygate Estate was demolished between 2011 and 2014. What remains is not 
+      absence but a condition — a residual topology of paths, sight lines, and thresholds 
+      that persist in the landscape despite the structures that once defined them.
+    </p>
+    <p>
+      This project locates itself precisely at that perimeter: the edge where the estate 
+      met the street, where private domesticity met public infrastructure. By mapping the 
+      surviving threshold conditions — worn ground, remaining boundary walls, displaced 
+      planting — the work asks what accumulates at the edge of erasure and how new spatial 
+      propositions might draw from this residue rather than replacing it.
+    </p>
+    <p>
+      The output is a series of adaptive spatial proposals that treat the perimeter not as 
+      a boundary to be overcome but as a productive condition — one that contains within 
+      it the memory of the estate and the potential of what might come next.
+    </p>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <span class="footer-title">Something Accumulates in the Waypoint — 2025</span>
+  <a class="footer-back" href="../index.html">← Return to map</a>
+</footer>
+
+<!-- ── LIGHTBOX ── -->
+<div id="lightbox">
+  <span id="lightbox-close">✕</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+// Lightbox — click any photo to enlarge
+const lightbox    = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const closeBtn    = document.getElementById('lightbox-close');
+
+document.querySelectorAll('.photo-item img').forEach(img => {
+  img.addEventListener('click', () => {
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    lightbox.classList.add('open');
+  });
+});
+
+function closeLightbox() { lightbox.classList.remove('open'); }
+closeBtn.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+</script>
+
+</body>
+</html>
